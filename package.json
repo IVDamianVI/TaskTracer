@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "bootstrap": "^5.3.3",
+    "bootstrap-icons": "^1.11.3",
+    "express": "^4.19.2",
+    "os": "^0.1.2",
+    "os-utils": "^0.0.14",
+    "pidusage": "^3.0.2",
+    "react-bootstrap-table-next": "^4.0.3",
+    "rxjs": "^7.8.1"
+  }
+}
