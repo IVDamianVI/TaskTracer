@@ -58,6 +58,14 @@ TaskTracer is a web application designed to monitor the usage of system resource
 
 The application uses Bootstrap and custom CSS to ensure responsiveness. It adapts to various screen sizes and devices, providing a seamless user experience across desktops, tablets, and mobile devices.
 
+## Screenshots
+
+### Desktop View
+![Desktop Screenshot](screenshot/screen-desktop.png)
+
+### Mobile View
+![Mobile Screenshot](screenshot/screen-mobile.png)
+
 ## Authors
 
 - Damian Grubecki [@IVDamianVI](https://github.com/ivdamianvi)
