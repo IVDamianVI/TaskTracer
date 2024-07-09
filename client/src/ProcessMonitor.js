@@ -88,6 +88,30 @@ const ProcessMonitor = () => {
         setDarkMode(prevDarkMode => !prevDarkMode);
     };
 
+    const handleShutdown = () => {
+        fetch('/api/shutdown', { method: 'POST' })
+            .then(response => {
+                if (response.ok) {
+                    alert('Shutdown command sent successfully');
+                } else {
+                    throw new Error('Failed to send shutdown command');
+                }
+            })
+            .catch(err => setError('Error sending shutdown command'));
+    };
+
+    const handleSleep = () => {
+        fetch('/api/sleep', { method: 'POST' })
+            .then(response => {
+                if (response.ok) {
+                    alert('Sleep command sent successfully');
+                } else {
+                    throw new Error('Failed to send sleep command');
+                }
+            })
+            .catch(err => setError('Error sending sleep command'));
+    };
+
     useEffect(() => {
         document.body.className = darkMode ? 'dark-mode' : 'light-mode';
     }, [darkMode]);
@@ -100,9 +124,13 @@ const ProcessMonitor = () => {
         <div className="container mt-5">
             <div className="d-flex justify-content-between align-items-center mb-4">
                 <h1 className="text-center"><i className="bi bi-bullseye"></i> TaskTracer</h1>
-                <button className="btn btn-secondary" onClick={toggleDarkMode}>
-                    {darkMode ? <i className="bi bi-sun-fill"></i> : <i className="bi bi-moon-fill"></i>}
-                </button>
+                <div>
+                    <button onClick={toggleDarkMode} className="btn btn-secondary mr-15" title="Change Theme">
+                        {darkMode ? <i className="bi bi-sun-fill"></i> : <i className="bi bi-moon-fill"></i>}
+                    </button>
+                    <button onClick={handleSleep} className="btn btn-warning mr-15" title="Sleep PC"><i class="bi bi-moon-stars-fill"></i></button>
+                    <button onClick={handleShutdown} className="btn btn-danger" title="Shut Down PC"><i class="bi bi-power"></i></button>
+                </div>
             </div>
             <form onSubmit={handleSubmit} className="mb-4">
                 <div className={`input-group ${darkMode ? 'dark-mode' : 'light-mode'}`}>
@@ -113,7 +141,7 @@ const ProcessMonitor = () => {
             {error && <div className="alert alert-danger mt-2">{error}</div>}
             {pid && (
                 <div className={`card mb-4 ${darkMode ? 'dark-mode' : 'light-mode'}`}>
-                    <h2 className="mb-3">Resource Usage for {command} (PID {pid})</h2>
+                    <h2 className="mb-1">Resource Usage for {command} (PID {pid})</h2>
                     <div className="card-body">
                         <div className="row">
                             <div className="col">
@@ -122,7 +150,7 @@ const ProcessMonitor = () => {
                                         <i className="bi bi-memory"></i> Memory
                                     </div>
                                     <div className="card-body">
-                                        {usage.memory !== undefined ? `${usage.memory.toFixed(2)} MB` : 'Loading...'}
+                                        {usage.memory !== undefined ? `${usage.memory.toFixed(2)} MB` : <div className="spinner-border text-primary" role="status"><span className="visually-hidden">Loading...</span></div>}
                                     </div>
                                 </div>
                             </div>
@@ -132,7 +160,7 @@ const ProcessMonitor = () => {
                                         <i className="bi bi-cpu-fill"></i> CPU:
                                     </div>
                                     <div className="card-body">
-                                        {usage.cpu !== undefined ? `${usage.cpu.toFixed(2)} %` : 'Loading...'}
+                                        {usage.cpu !== undefined ? `${usage.cpu.toFixed(2)} %` : <div className="spinner-border text-primary" role="status"><span className="visually-hidden">Loading...</span></div>}
                                     </div>
                                 </div>
                             </div>
@@ -150,7 +178,7 @@ const ProcessMonitor = () => {
                                     <i className="bi bi-cpu-fill"></i> CPU
                                 </div>
                                 <div className="card-body">
-                                    {systemUsage.cpu !== undefined ? `${systemUsage.cpu.toFixed(2)} %` : 'Loading...'}
+                                    {systemUsage.cpu !== undefined ? `${systemUsage.cpu.toFixed(2)} %` : <div className="spinner-border text-primary" role="status"><span className="visually-hidden">Loading...</span></div>}
                                 </div>
                             </div>
                         </div>
@@ -160,7 +188,7 @@ const ProcessMonitor = () => {
                                     <i className="bi bi-memory"></i> Total Memory
                                 </div>
                                 <div className="card-body">
-                                    {systemUsage.memory !== undefined ? `${systemUsage.memory.total.toFixed(2)} MB` : 'Loading...'}
+                                    {systemUsage.memory !== undefined ? `${systemUsage.memory.total.toFixed(2)} MB` : <div className="spinner-border text-primary" role="status"><span className="visually-hidden">Loading...</span></div>}
                                 </div>
                             </div>
                         </div>
@@ -170,7 +198,7 @@ const ProcessMonitor = () => {
                                     <i className="bi bi-memory"></i> Used Memory
                                 </div>
                                 <div className="card-body">
-                                    {systemUsage.memory !== undefined ? `${systemUsage.memory.used.toFixed(2)} MB` : 'Loading...'}
+                                    {systemUsage.memory !== undefined ? `${systemUsage.memory.used.toFixed(2)} MB` : <div className="spinner-border text-primary" role="status"><span className="visually-hidden">Loading...</span></div>}
                                 </div>
                             </div>
                         </div>
@@ -180,13 +208,14 @@ const ProcessMonitor = () => {
                                     <i className="bi bi-memory"></i> Free Memory
                                 </div>
                                 <div className="card-body">
-                                    {systemUsage.memory !== undefined ? `${systemUsage.memory.free.toFixed(2)} MB` : 'Loading...'}
+                                    {systemUsage.memory !== undefined ? `${systemUsage.memory.free.toFixed(2)} MB` : <div className="spinner-border text-primary" role="status"><span className="visually-hidden">Loading...</span></div>}
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
             <h2 className="mb-3">Running Processes</h2>
             <table className={`table ${darkMode ? 'table-dark' : 'table-light'}`}>
                 <thead className={darkMode ? 'thead-dark' : ''}>

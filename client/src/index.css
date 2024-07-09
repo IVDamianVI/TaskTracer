@@ -7,6 +7,19 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+th,
+td,
+.card {
+  cursor: default;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -29,6 +42,10 @@ body.dark-mode {
   color: var(--text-color-dark);
 }
 
+h1 {
+  color: #0d6efd !important;
+}
+
 .card.light-mode {
   background-color: #f8f9fa;
   color: #000000 !important;
@@ -43,6 +60,10 @@ body.dark-mode {
     color: #000000;
     background-color: #ffffff !important;
   }
+}
+
+.mr-15 {
+  margin-right: 15px !important;
 }
 
 .card.dark-mode {
@@ -85,8 +106,19 @@ body.dark-mode {
   color: #ffffff;
 }
 
+.table-dark,
+.thread-dark th,
+.table-dark td {
+  background-color: #1e1e1e !important;
+  color: #ffffff !important;
+}
+
 form {
   width: 300px;
+}
+
+.card h2 {
+  padding-top: 10px;
 }
 
 .card-header {
@@ -96,4 +128,49 @@ form {
 
 .card-body {
   font-size: 1.5rem;
+}
+
+body.dark-mode footer {
+  background-color: #1e1e1e !important;
+
+  p {
+    color: #0080ff !important;
+  }
+}
+
+body.light-mode footer {
+  background-color: #f8f9fa !important;
+
+  p {
+    color: #0080ff !important;
+  }
+}
+
+footer p:hover {
+  color: #0056b3 !important;
+}
+
+footer {
+  padding: 10px;
+  cursor: default !important;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+td {
+  vertical-align: middle;
 }
